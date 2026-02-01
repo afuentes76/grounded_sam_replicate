@@ -94,7 +94,22 @@ class Predictor(BasePredictor):
         os.makedirs(output_dir, exist_ok=True)  # create directory if it doesn't exist
 
         for var_name, img in variable_dict.items():
+            # Existing behavior (unchanged)
             random_filename = output_dir + "/" + var_name + ".jpg"
-            rgb_img = img.convert('RGB')  # Converting image to RGB
+            rgb_img = img.convert("RGB")
             rgb_img.save(random_filename)
             yield Path(random_filename)
+
+            # NEW: also export transparent PNG for mask only
+            if var_name == "mask":
+                png_filename = output_dir + "/mask.png"
+
+                # Convert mask to single channel
+                mask_l = img.convert("L")
+
+                # Create transparent RGBA image
+                rgba = Image.new("RGBA", mask_l.size, (255, 255, 255, 0))
+                rgba.putalpha(mask_l)
+
+                rgba.save(png_filename)
+                yield Path(png_filename)
