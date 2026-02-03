@@ -20,7 +20,7 @@ build:
     - "yapf==0.40.0"
   run:
     - "mkdir -p /src/weights"
-    - "python //script/download_weights.py"
+    - "python script/download_weights.py"
     - "test -d /src/weights/GroundingDINO || git clone --depth 1 https://github.com/IDEA-Research/GroundingDINO.git /src/weights/GroundingDINO"
     - "test -d /src/weights/segment-anything || git clone --depth 1 https://github.com/facebookresearch/segment-anything.git /src/weights/segment-anything"
 predict: "predict.py:Predictor"
