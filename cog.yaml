@@ -19,6 +19,11 @@ build:
     - "opencv-python==4.7.0.72"
     - "addict==2.4.0"
     - "yapf==0.40.0"
+  env:
+    HF_HUB_DISABLE_XET: "1"
+    HF_HUB_DOWNLOAD_TIMEOUT: "600"
+    HF_HUB_ETAG_TIMEOUT: "60"
+    TRANSFORMERS_VERBOSITY: "info"
   run:
     - "mkdir -p /src/weights"
     - "test -d /src/weights/GroundingDINO || git clone --depth 1 https://github.com/IDEA-Research/GroundingDINO.git /src/weights/GroundingDINO"
